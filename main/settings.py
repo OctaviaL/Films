@@ -32,11 +32,13 @@ INSTALLED_APPS = [
     #
     'rest_framework',
     'rest_framework_simplejwt',
+    'django_filters',
 
     # my apps
     'account',
     'films',
     'feedback',
+    'recommendation',
 ]
 
 MIDDLEWARE = [
@@ -150,3 +152,6 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
 
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}

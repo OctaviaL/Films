@@ -54,10 +54,12 @@ class ForgotPasswordSerializer(serializers.Serializer):
         
         return email
     
-    def validete_secret_word(self, secret_word):
-        if not User.objects.filter(secret_word=secret_word).exists():
+    def validate_secret_word(self, validated_data):
+        request = self.context.get('request')
+        user = request.user
+        secret_word = request.validated_data('secret_word')
+        if not user.secret_word:
             raise serializers.ValidationError('Неверное секретное слово!')
-        
         return secret_word
     
     def send_reset_password_code(self):

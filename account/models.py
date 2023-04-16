@@ -39,7 +39,7 @@ class UserManager(BaseUserManager):
 class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=100)
-    secret_word = models.CharField(max_length=20)
+    secret_word = models.TextField(max_length=50, verbose_name='секретное слово')
     is_active = models.BooleanField(default=False)
     username = None
     activation_code = models.CharField(max_length=50, blank=True)

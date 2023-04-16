@@ -5,11 +5,17 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from feedback.models import Like
+from rest_framework.filters import SearchFilter, OrderingFilter
+from django_filters.rest_framework import DjangoFilterBackend
+
 
 class FilmModelViewSet(viewsets.ModelViewSet):
     queryset = Film.objects.all()
     serializer_class = FilmSerializer
     permission_classes = [IsAdminUser]
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_fields = ['tag', 'genre', 'year']
+    search_fields = ['tag', 'title']
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
